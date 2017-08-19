@@ -1,0 +1,134 @@
+@import 'https://fonts.googleapis.com/css?family=Ubuntu';
+@import 'https://fonts.googleapis.com/earlyaccess/sawarabigothic.css';
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+
+@fontfam: 'Ubuntu', 'Sawarabi Gothic', sans-serif;
+@lightest: #eee;
+.transition {transition: all .5s cubic-bezier(0, .5, 1, .5);}
+.square(@i) {width: @i; height: @i;}
+@green: #ac5;
+@orange: #db6;
+@red: #e67;
+
+@font-face {
+    font-family: 'Pokerbot';
+    src: url(pokerbot.ttf);
+}
+
+html {background: transparent;}
+
+body {
+  font: 12px/120% @fontfam;
+  background: @lightest;
+  margin: 0;
+  user-select: none;
+  min-height: 100vh;
+
+  &#setRegion {
+    background: fade(#000, 10%);
+    cursor: crosshair;
+  }
+}
+
+.title {
+  font: 32px/120% @fontfam;
+  padding: 5px 10px;
+  background: #456;
+  color: @lightest;
+
+  &::before {
+    content: "0";
+    font-family: 'Pokerbot';
+    font-size: 70%;
+    display: inline-block;
+    width: 1em;
+  }
+
+  .subtitle {
+    font: 12px/120% @fontfam;
+  }
+}
+
+.content {
+  padding: 25px;
+}
+
+button {
+  background: #789;
+  border: none;
+  padding: 2px 8px;
+  color: @lightest;
+  position: relative;
+  overflow: hidden;
+  .transition;
+
+  &::before {
+    content: "";
+    background: #abc;
+    position: absolute;
+    .square(0);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    .transition;
+    mix-blend-mode: lighten;
+  }
+
+
+  &:hover {background: #456;}
+
+  &:focus {
+    background: #6ab;
+    transition-delay: .3s;
+    outline: none;
+    &::before {
+      animation: btnFocus 1s 1;
+    }
+  }
+
+  @keyframes btnFocus {
+    0% {width: 0; height: 0;}
+    50% {width: 150px; height: 150px;opacity:1;}
+    100% {opacity: 0;}
+  }
+}
+
+#select {
+  position: absolute;
+  background: fade(orange, 20%);
+  outline: 1px dotted fade(#000, 30%);
+
+  .tray {
+    position: absolute;
+    width: 120px;
+    display: flex;
+    justify-content: space-around;
+
+    &.vertical {flex-direction: column; width: 30px; height: 120px;}
+
+    button {
+      .square(~'30px!important');
+      padding: 0;
+      border-radius: 50%;
+      border: none;
+      text-align: center;
+      color: @lightest;
+      &::after {font: 20px/30px 'FontAwesome';}
+    }
+
+    #yes {
+      background: @green;
+      &::after {content: "\f00c";}
+    }
+
+    #retry {
+     background: @orange;
+     &::after {content:"\f021";}
+    }
+
+    #no {
+      background: @red;
+      &::after {content: "\f00d";}
+    }
+  }
+}
